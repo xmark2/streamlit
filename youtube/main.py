@@ -22,7 +22,6 @@ st.json(json)
 
 code = """
 print("hello world")
-
 def funct():
     return 0;
 """
