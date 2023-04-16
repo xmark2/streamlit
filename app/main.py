@@ -1,40 +1,44 @@
 import datetime
-import streamlit as st
-from utils import set_bg, head, footer, body, read_data
-
-
 import time
+import streamlit as st
+from utils import set_bg, head, footer, file_uploader, selection_box
 
 st.set_page_config(page_title='MyApp', page_icon='assets/icon.png')
 
 ss = st.session_state
 set_bg('assets/background.png')
 
-
-st.title('Streamlit Web App')
-st.subheader('sub header')
-st.header('header')
-st.text('text text text')
-
 head()
+# file_uploader()
+# with st.spinner("Loading..."):
+#     time.sleep(5)
 
-if 'prob_click' not in ss:
-    ss['prob_click'] = False
+features = ['Please choose a feature', 'FileUploader', 'Empty']
 
-if st.button('Bring it on!'):
-    ss['prob_click'] = True
-    ss['report_click'] = False
-    df = read_data('data/sample.csv')
-    # choice = df.sample(1)
-    choice = df.columns
-    print(choice)
-    ss['sample'] = choice
-    body(choice)
+selectedApp = selection_box('select a feature', features)
 
-if ss['prob_click'] and ss['report_click']:
-    body(ss['sample'])
-    footer(ss['sample'])
-elif ss['prob_click']:
-    footer(ss['sample'])
-    ss['report_click'] = True
+if selectedApp == features[0]:
+    st.write(None)
+elif selectedApp == features[1]:
+    file_uploader()
+else:
+    st.write(selectedApp)
+
+
+# with st.sidebar:
+#     with st.echo():
+#         st.write("This code will be printed to the sidebar.")
+#
+#     with st.spinner("Loading..."):
+#         time.sleep(5)
+#     st.success("Done!")
+# tab1, tab2, tab3 = st.tabs(["Cat", "Dog", "Owl"])
+# with tab1:
+#     st.header("A cat")
+#
+# with tab2:
+#     st.header("A dog")
+#
+# with tab3:
+#     st.header("A owl")
 
