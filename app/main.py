@@ -1,7 +1,7 @@
 import datetime
 import time
 import streamlit as st
-from utils import set_bg, head, footer, file_uploader, selection_box
+from utils import set_bg, head, file_uploader, selection_box
 
 st.set_page_config(page_title='MyApp', page_icon='assets/icon.png')
 
@@ -18,7 +18,8 @@ features = ['Please choose a feature', 'FileUploader', 'Empty']
 selectedApp = selection_box('select a feature', features)
 
 if selectedApp == features[0]:
-    st.write(None)
+    pass
+    # st.write(None)
 elif selectedApp == features[1]:
     file_uploader()
 else:
