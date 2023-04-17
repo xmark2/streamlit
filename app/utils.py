@@ -36,7 +36,8 @@ def selection_box(txt_selection, mylist):
 def convert_file_to_df(uploaded_file):
     if uploaded_file.type == 'text/csv':
         df = pd.read_csv(uploaded_file, encoding='latin-1')
-        st.write(df)
+        multiselect('my fields', df.columns)
+        # st.write(df)
         # return df
 
     elif 'application' in uploaded_file.type:
@@ -45,7 +46,9 @@ def convert_file_to_df(uploaded_file):
         mydict = dict(zip(df.sheet_names, ch))
         for sheet in df.sheet_names:
             if mydict[sheet]:
-                st.write(df.parse(sheet))
+                multiselect('my fields', df.parse(sheet).columns)
+                # st.write(df.parse(sheet))
+                # return df.parse(sheet)
         # sheet = selection_box('select a sheet', df.sheet_names)
         # return df.parse(sheet)
 
@@ -63,4 +66,15 @@ def file_uploader():
     for uploaded_file in uploaded_files:
         st.write("filename:", uploaded_file.name, "type:", uploaded_file.type)
         convert_file_to_df(uploaded_file)
+
+        # multiselect('my fields', df.columns)
+
         # st.write(convert_file_to_df(uploaded_file))
+
+
+def multiselect(multi_text, fields):
+    options = st.multiselect(
+        multi_text,
+        fields)
+
+    st.write('You selected:', ' | '.join(options))
